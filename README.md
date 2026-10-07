@@ -7,7 +7,7 @@ drown in false positives. Standard library only.
 ## Why I built this
 
 Recon is step one of every pentest writeup I've read, and subdomain
-enumeration is the most mechanical part of it — which made it a good
+enumeration is the most mechanical part of it, which made it a good
 weekend project. I also specifically wanted to understand wildcard DNS,
 because it's the classic gotcha: point a brute-forcer at a wildcarded
 domain without handling it and every word in your list "resolves."
@@ -16,7 +16,7 @@ Thousands of results, all fake.
 ## What it does
 
 - Builds candidates from a wordlist (`api.example.com`,
-  `vpn.example.com`, ...) — 59 common labels bundled in `subdomains.txt`
+  `vpn.example.com`, ...): 59 common labels bundled in `subdomains.txt`
 - Detects wildcard DNS first: resolves 3 random, almost-certainly-fake
   hostnames. If they all resolve, the zone answers for anything, and any
   candidate that only hits those IPs gets thrown out
@@ -81,12 +81,12 @@ $ python3 recon.py wildcarded.example
 
 ## Requirements
 
-Python 3.8+. Nothing to install — see `requirements.txt`.
+Python 3.8+. Nothing to install. See `requirements.txt`.
 
 ## What tripped me up
 
 Testing. The sandbox I built this in has a DNS setup that answers
-*everything* — even obvious garbage names resolve. So my first "successful"
+everything. Even obvious garbage names resolve. So my first "successful"
 test run reported the entire wordlist as live subdomains and I assumed the
 wildcard filter was broken. It wasn't; the network was lying to me. I ended
 up writing stubbed unit checks with a monkeypatched resolver to verify the
@@ -100,7 +100,7 @@ with anything real.
 
 ## What I'd do differently
 
-- Async DNS instead of threads — cleaner at high concurrency.
+- Async DNS instead of threads: cleaner at high concurrency.
 - More record types. Right now it's A records only; TXT and MX can leak
   interesting stuff too.
 - Passive sources (certificate transparency logs and the like) alongside
@@ -109,7 +109,7 @@ with anything real.
 ## A note on using this
 
 Only enumerate domains you own or have explicit written permission to
-test — a bug bounty scope, a lab, your own stuff. Brute-forcing generates
+test: a bug bounty scope, a lab, your own stuff. Brute-forcing generates
 real query traffic against someone's nameservers, so keep the thread count
 and wordlist reasonable. Unauthorized scanning can get you in legal
 trouble.
