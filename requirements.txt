@@ -1,0 +1,3 @@
+# recon.py requires only the Python 3 standard library.
+# No third-party packages need to be installed.
+# Python 3.8+ is recommended.
